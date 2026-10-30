@@ -26,3 +26,20 @@ dist-ssr
 reference/
 .opencode
 
+# Environment files: never commit credentials or local configuration
+.env
+.env.*
+!.env.example
+
+# Test output (relevant once Vitest / Playwright is added)
+coverage/
+playwright-report/
+test-results/
+
+# Tool caches
+.eslintcache
+.vite/
+
+# IntelliJ project module files
+*.iml
+
