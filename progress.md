@@ -13,10 +13,20 @@
 - Confirmed that the generated project builds successfully and passes ESLint.
 - Added the initial `Character` TypeScript interface for player-entered character data.
 - Confirmed that the character model passes the TypeScript build and ESLint checks.
+- Added the `createCharacter` factory for new characters with safe initial values and browser-generated unique IDs.
+- Confirmed that the character factory passes the TypeScript build and ESLint checks.
+- Replaced the Vite demo with a minimal React screen that creates and displays one character in memory.
+- Confirmed that the minimal React character screen passes the TypeScript build and ESLint checks.
+- Added in-memory creation, listing, and selection of multiple characters.
+- Confirmed that the multi-character screen passes the TypeScript build and ESLint checks.
+- Added browser-local character storage and automatic saving after character-list changes; validation is still pending.
+- Configured the application to select the first stored character when it loads; validation is still pending.
+- Added deletion of the selected character with a browser confirmation and fallback selection; validation is still pending.
 
 ## Next
 
-- Use the `Character` model as the basis for local multi-character management.
+- Verify the local storage integration with lint, build, and a browser refresh.
+- Add editing for the selected character's name.
 
 ## Blockers
 

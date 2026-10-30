@@ -40,6 +40,20 @@
 - Do not make several unrelated architectural changes in one step unless the user explicitly asks for it.
 - Invite the user to review each step and ask questions before continuing with the next significant step.
 
+## Collaborative editing workflow
+
+- The user applies all application-code, configuration, style, and documentation changes personally.
+- Do not modify project files directly, except for maintaining `progress.md`.
+- For each implementation step, provide only:
+  - the target file path,
+  - the exact code to add, replace, or remove,
+  - a short explanation of the change,
+  - relevant validation commands.
+- Keep each proposed change small and independently reviewable.
+- Wait for the user to confirm that a change was applied before proposing the next implementation step.
+- Unless explicitly asked otherwise, do not install dependencies, run commands that modify files, or reformat code.
+- The user runs validation commands and reports the results. Update `progress.md` after verifying the current project state.
+
 ## Quality
 
 - Add unit tests for new or changed game-rule calculations.

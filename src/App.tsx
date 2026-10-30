@@ -1,122 +1,117 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import {useEffect, useState} from 'react'
+import {createCharacter} from './characters/createCharacter'
+import {loadCharacters, saveCharacters} from './storage/characterStorage'
+import type {Character} from './types/character'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [characters, setCharacters] = useState<Character[]>(loadCharacters)
+    const [selectedCharacterId, setSelectedCharacterId] = useState<string | null>(() => characters[0]?.id ?? null,)
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    useEffect(() => {
+        saveCharacters(characters)
+    }, [characters])
 
-      <div className="ticks"></div>
+    const selectedCharacter =
+        characters.find((character) => character.id === selectedCharacterId) ?? null
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+    function handleCreateCharacter() {
+        const newCharacter = createCharacter()
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        setCharacters((currentCharacters) => [...currentCharacters, newCharacter])
+        setSelectedCharacterId(newCharacter.id)
+    }
+
+    function handleDeleteSelectedCharacter() {
+        if (selectedCharacter === null) {
+            return
+        }
+        const characterName = selectedCharacter.name || 'this character'
+        const shouldDelete = window.confirm(`Delete ${characterName}?`)
+
+        if (!shouldDelete) {
+            return
+        }
+        const remainingCharacters = characters.filter(
+            (character) => character.id !== selectedCharacter.id
+        )
+
+        setCharacters(remainingCharacters)
+        setSelectedCharacterId(remainingCharacters[0]?.id ?? null)
+    }
+
+    function handleSelectedCharacterNameChange(name: string) {
+        if (selectedCharacter === null) {
+            return
+        }
+
+        setCharacters((currentCharacters) =>
+            currentCharacters.map((character) =>
+                character.id === selectedCharacter.id
+                    ? {...character, name}
+                    : character))
+    }
+
+    return (
+        <main className="app">
+            <header className="app__header">
+                <h1>Character Builder</h1>
+                <p>Create a character to verify the first domain model.</p>
+            </header>
+
+            <button className="primary-button" type="button" onClick={handleCreateCharacter}>
+                Create character
+            </button>
+
+            {characters.length === 0 ? (
+                <p>No character has been created yet.</p>
+            ) : (
+                <div className="character-workspace">
+                    <section aria-labelledby="character-list-heading">
+                        <h2 id="character-list-heading">Characters</h2>
+                        <ul className="character-list">
+                            {characters.map((character, index) => (
+                                <li key={character.id}>
+                                    <button
+                                        className="character-list__button"
+                                        type="button"
+                                        aria-pressed={character.id === selectedCharacterId}
+                                        onClick={() => setSelectedCharacterId(character.id)}
+                                    >
+                                        {character.name || `Character ${index + 1}`}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+
+                    {selectedCharacter !== null && (
+                        <section className="character-card" aria-labelledby="character-heading">
+                            <h2 id="character-heading">Selected character</h2>
+                            <dl>
+                                <dt>ID</dt>
+                                <dd>{selectedCharacter.id}</dd>
+                                <dt>Level</dt>
+                                <dd>{selectedCharacter.level}</dd>
+                                <dt>Name</dt>
+                                <dd>
+                                    <input
+                                        className="characer-name-input"
+                                        type="text"
+                                        value={selectedCharacter.name}
+                                        onChange={(event) => handleSelectedCharacterNameChange(event.target.value)}
+                                    />
+                                </dd>
+                            </dl>
+                            <button className="delete-button" type="button" onClick={handleDeleteSelectedCharacter}>
+                                Delete character
+                            </button>
+                        </section>
+                    )}
+                </div>
+            )}
+        </main>
+    )
 }
 
 export default App
