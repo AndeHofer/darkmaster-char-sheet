@@ -2,9 +2,18 @@ import {useEffect, useState} from 'react'
 import {createCharacter} from './characters/createCharacter'
 import {loadCharacters, saveCharacters} from './storage/characterStorage'
 import {loadLanguage, saveLanguage} from './storage/languageStorage'
-import type {Character} from './types/character'
-import {translate, type Language, type TranslationKey} from './i18n/translations'
+import type {Character, StatKey} from './types/character'
+import {type Language, translate, type TranslationKey} from './i18n/translations'
 import './App.css'
+
+const statKeys: StatKey[] = [
+    'brawn',
+    'swiftness',
+    'fortitude',
+    'wits',
+    'wisdom',
+    'bearing',
+]
 
 function App() {
     const [characters, setCharacters] = useState<Character[]>(loadCharacters)
@@ -12,9 +21,13 @@ function App() {
     const [language, setLanguage] = useState<Language>(loadLanguage)
     const t = (key: TranslationKey, values?: Record<string, string>) => translate(language, key, values)
 
-    useEffect(() => {saveCharacters(characters)}, [characters])
+    useEffect(() => {
+        saveCharacters(characters)
+    }, [characters])
 
-    useEffect(() => {saveLanguage(language)}, [language])
+    useEffect(() => {
+        saveLanguage(language)
+    }, [language])
 
     const selectedCharacter =
         characters.find((character) => character.id === selectedCharacterId) ?? null
@@ -64,6 +77,16 @@ function App() {
         }
 
         updateSelectedCharacter({level})
+    }
+
+    function handleSelectedCharacterStatChange(key: StatKey, value: number) {
+        if (selectedCharacter === null || !Number.isInteger(value)) {
+            return
+        }
+
+        updateSelectedCharacter({
+            stats: {...selectedCharacter.stats, [key]: value},
+        })
     }
 
     return (
@@ -167,6 +190,32 @@ function App() {
                                     />
                                 </dd>
                             </dl>
+                            <section className="stat-grid" aria-labelledby="stats-heading">
+                                <h3 id="stats-heading">{t('stat.heading')}</h3>
+                                <dl>
+                                    {statKeys.map((key) => (
+                                        <div className="stat-grid__item" key={key}>
+                                            <dt>
+                                                <label htmlFor={`character-stat-${key}`}>
+                                                    {t(`stat.${key}`)}
+                                                </label>
+                                            </dt>
+                                            <dd>
+                                                <input
+                                                    id={`character-stat-${key}`}
+                                                    className="character-name-input"
+                                                    type="number"
+                                                    step="5"
+                                                    value={selectedCharacter.stats[key]}
+                                                    onChange={(event) =>
+                                                        handleSelectedCharacterStatChange(key, Number(event.target.value))
+                                                    }
+                                                />
+                                            </dd>
+                                        </div>
+                                    ))}
+                                </dl>
+                            </section>
                             <button className="delete-button" type="button" onClick={handleDeleteSelectedCharacter}>
                                 {t('action.deleteCharacter')}
                             </button>

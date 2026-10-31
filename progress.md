@@ -43,11 +43,14 @@
   movement 15 with an optional swiftness-based variant.
 - Added the six stats to the character model, factory, and normalization using the English rulebook names.
 - Renamed the model type to `Stats`/`StatKey` and the translation keys to the `stat.*` prefix.
+- Added stat editing to the character sheet UI; validation is still pending.
+- Expanded the MVP scope to include GitHub Pages deployment and JSON export/import.
 
 ## Next
 
 - Verify the local storage integration with lint, build, and a browser refresh.
-- Add stat editing to the character sheet UI.
+- Configure the Vite base path and a GitHub Actions workflow for GitHub Pages.
+- Add JSON export and import for characters.
 - Add unit tests for the first derived-value calculations.
 - Split the growing `App.tsx` into focused components.
 - Add ancestry, culture, and vocation selection from predefined data.
