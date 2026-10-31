@@ -18,9 +18,10 @@ The first usable version allows a player to:
 - create, select, rename, and delete a character;
 - enter a character name, player name, level, and notes;
 - select ancestry, culture, and vocation from predefined options;
-- enter attributes;
+- enter stats;
 - view the first automatically calculated derived values;
 - switch the user interface between German and English.
+- GitHub Pages deployment with a GitHub Actions workflow.
 
 ## Data and Rule Design
 
@@ -36,14 +37,13 @@ The first usable version allows a player to:
 
 - Characters are automatically stored locally in the browser.
 - The MVP supports multiple local characters.
-- JSON export and import are deferred to a later phase.
+- Characters can be exported to and imported from a JSON file for backup and transfer.
 
 ## Out of Scope
 
 The following features are intentionally not part of the MVP:
 
 - PDF generation, fillable PDF forms, and print-specific layouts;
-- JSON export and import;
 - spells, talents, detailed skills, equipment, and inventory management;
 - campaign management;
 - accounts, authentication, databases, cloud synchronization, or other
@@ -67,3 +67,5 @@ The following features are intentionally not part of the MVP:
 5. Identify the rulebook sections for attributes and derived values.
 6. Implement one calculation rule at a time with tests.
 7. Display calculated values in the character sheet UI.
+8. Implement JSON export and import for character data.
+9. Add GitHub Pages deployment with a GitHub Actions workflow.
