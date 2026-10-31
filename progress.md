@@ -33,15 +33,21 @@
 - Added normalization of stored characters on load, which removes unknown legacy keys.
 - Added browser-language detection as the initial default when no language is stored.
 - Verified the attribute and derived-value rules in the local rulebook (chapter 2, PDF pages 13-14; chapter 8, PDF pages 93-94).
-- Confirmed the six attributes: agility (GE), intellect (IN), constitution (KO), presence (PR), strength (ST), wisdom (WE).
+- Confirmed the six stats with their German equivalents: Brawn (ST), Swiftness (GE), Fortitude (KO), Wits (IN), Wisdom
+  (WE), Bearing (PR).
+- Added the English core rules to the local reference and recorded the rule that English terms follow that book.
+- Verified the English stat names: Brawn, Swiftness, Fortitude, Wits, Wisdom, Bearing; the English book calls them
+  Stats.
 - Confirmed the point-buy method: 50 points in steps of 5, each attribute between 0 and 25.
-- Confirmed derived values: defense = max(agility, 0); toughness save = constitution + 5; willpower save = wisdom + 5; movement 15 with an optional agility-based variant.
+- Confirmed derived values: defense = max (swiftness, 0); toughness save = fortitude + 5; willpower save = wisdom + 5;
+  movement 15 with an optional swiftness-based variant.
+- Added the six stats to the character model, factory, and normalization using the English rulebook names.
+- Renamed the model type to `Stats`/`StatKey` and the translation keys to the `stat.*` prefix.
 
 ## Next
 
 - Verify the local storage integration with lint, build, and a browser refresh.
-- Add the six attributes to the character model, factory, and normalization.
-- Add attribute editing to the character sheet UI.
+- Add stat editing to the character sheet UI.
 - Add unit tests for the first derived-value calculations.
 - Split the growing `App.tsx` into focused components.
 - Add ancestry, culture, and vocation selection from predefined data.

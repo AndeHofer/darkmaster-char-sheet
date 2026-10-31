@@ -1,4 +1,4 @@
-import type { Character } from '../types/character'
+import type {Character} from '../types/character'
 
 export function createCharacter(): Character {
   return {
@@ -6,13 +6,13 @@ export function createCharacter(): Character {
     name: '',
     playerName: '',
     level: 1,
-    attributes: {
-      agility: 0,
-      intellect: 0,
-      constitution: 0,
-      presence: 0,
-      strength: 0,
+    stats: {
+      brawn: 0,
+      swiftness: 0,
+      fortitude: 0,
+      wits: 0,
       wisdom: 0,
+      bearing: 0,
     },
     ancestryId: null,
     cultureId: null,

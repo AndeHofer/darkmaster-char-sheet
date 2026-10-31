@@ -1,4 +1,4 @@
-import type {Attributes, Character} from '../types/character'
+import type {Character, Stats} from '../types/character'
 
 export function normalizeCharacter(value: unknown): Character | null {
     if(typeof value !== 'object' || value === null){
@@ -12,7 +12,7 @@ export function normalizeCharacter(value: unknown): Character | null {
         name: typeof record.name === 'string' ? record.name : '',
         playerName: typeof record.playerName === 'string' ? record.playerName : '',
         level: isLevel(record.level) ? record.level : 1,
-        attributes: normalizeAttributes(record.attributes),
+        stats: normalizeStats(record.stats),
         ancestryId: typeof record.ancestryId === 'string' ? record.ancestryId : null,
         cultureId: typeof record.cultureId === 'string' ? record.cultureId : null,
         vocationId: typeof record.vocationId === 'string' ? record.vocationId : null,
@@ -24,21 +24,21 @@ function isLevel(value: unknown): value is number {
     return typeof value === 'number' && Number.isInteger(value) && value >= 1
 }
 
-function normalizeAttributes(value: unknown): Attributes {
+function normalizeStats(value: unknown): Stats {
     const record = typeof value === 'object' && value !== null
         ? value as Record<string, unknown>
         : {}
 
     return {
-        agility: normalizeAttributeValue(record.agility),
-        intellect: normalizeAttributeValue(record.intellect),
-        constitution: normalizeAttributeValue(record.constitution),
-        presence: normalizeAttributeValue(record.presence),
-        strength: normalizeAttributeValue(record.strength),
-        wisdom: normalizeAttributeValue(record.wisdom),
+        brawn: normalizeStatValue(record.brawn),
+        swiftness: normalizeStatValue(record.swiftness),
+        fortitude: normalizeStatValue(record.fortitude),
+        wits: normalizeStatValue(record.wits),
+        wisdom: normalizeStatValue(record.wisdom),
+        bearing: normalizeStatValue(record.bearing),
     }
 }
 
-function normalizeAttributeValue(value: unknown): number {
+function normalizeStatValue(value: unknown): number {
     return typeof value === 'number' && Number.isInteger(value) ? value : 0
 }

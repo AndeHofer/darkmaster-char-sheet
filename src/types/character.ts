@@ -1,20 +1,20 @@
-export interface Attributes {
-  agility: number
-  intellect: number
-  constitution: number
-  presence: number
-  strength: number
+export interface Stats {
+  brawn: number
+  swiftness: number
+  fortitude: number
+  wits: number
   wisdom: number
+  bearing: number
 }
 
-export type AttributeKey = keyof Attributes
+export type StatKey = keyof Stats
 
 export interface Character {
   id: string
   name: string
   playerName: string
   level: number
-  attributes: Attributes
+  stats: Stats
   ancestryId: string | null
   cultureId: string | null
   vocationId: string | null

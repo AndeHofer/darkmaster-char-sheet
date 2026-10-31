@@ -73,12 +73,16 @@
 
 ## Content and licensing
 
-- A local, untracked copy of the *Against the Darkmaster* rulebook may be available in `reference/`.
-- Use it as the primary source for verifying game rules, terminology, and calculation logic.
+- Local, untracked rulebooks may be available in `reference/`:
+    - `against_the_darkmaster_spielhandbuch_20231221.pdf` – German rulebook.
+    - `Against the Darkmaster - Core Rules [v1.4.1].pdf` – English rulebook.
+- Use the German rulebook for German game terms and the English rulebook for English game terms.
+- Never translate game terms literally between the two books. Use the wording each rulebook actually uses. The English
+  book calls the six Stats `Brawn`, `Swiftness`, `Fortitude`, `Wits`, `Wisdom`, and `Bearing`.
+- Use the rulebooks as the primary source for verifying game rules, terminology, and calculation logic.
 - Do not copy substantial rulebook text, artwork, scans, or proprietary tables into the repository or published application.
 - Keep the project clearly labelled as unofficial if it references *Against the Darkmaster*.
 - Prefer original text, user-entered values, or data structures that do not reproduce protected material.
-- 
 ## Documentation
 
 - Document your progress and decisions in `progress.md`. If this file becomes longer than 100 lines, move older finished
