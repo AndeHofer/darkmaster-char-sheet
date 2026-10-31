@@ -45,11 +45,13 @@
 - Renamed the model type to `Stats`/`StatKey` and the translation keys to the `stat.*` prefix.
 - Added stat editing to the character sheet UI; validation is still pending.
 - Expanded the MVP scope to include GitHub Pages deployment and JSON export/import.
+- Configured the Vite base path and a GitHub Actions workflow that builds, lints, and deploys to GitHub Pages.
+- Upgraded the workflow actions to their Node 24 versions to remove the Node 20 deprecation warning.
+- Decided to deploy manually via `workflow_dispatch` instead of on every push.
 
 ## Next
 
 - Verify the local storage integration with lint, build, and a browser refresh.
-- Configure the Vite base path and a GitHub Actions workflow for GitHub Pages.
 - Add JSON export and import for characters.
 - Add unit tests for the first derived-value calculations.
 - Split the growing `App.tsx` into focused components.
