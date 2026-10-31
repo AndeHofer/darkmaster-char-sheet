@@ -22,11 +22,30 @@
 - Added browser-local character storage and automatic saving after character-list changes; validation is still pending.
 - Configured the application to select the first stored character when it loads; validation is still pending.
 - Added deletion of the selected character with a browser confirmation and fallback selection; validation is still pending.
+- Added editable selected-character names; validation is still pending.
+- Removed the obsolete Vite `#root` layout rule, which fixed layout shifting when selecting a character.
+- Added editable player names for the selected character; validation is still pending.
+- Added editable multi-line notes for the selected character; validation is still pending.
+- Added editable level with integer validation for the selected character; validation is still pending.
+- Extracted the repeated single-character update logic into one `updateSelectedCharacter` helper.
+- Added English and German translation tables plus a `translate` helper with placeholder support.
+- Wired the language switch into the interface and persisted the chosen language in `localStorage`; validation is still pending.
+- Added normalization of stored characters on load, which removes unknown legacy keys.
+- Added browser-language detection as the initial default when no language is stored.
+- Verified the attribute and derived-value rules in the local rulebook (chapter 2, PDF pages 13-14; chapter 8, PDF pages 93-94).
+- Confirmed the six attributes: agility (GE), intellect (IN), constitution (KO), presence (PR), strength (ST), wisdom (WE).
+- Confirmed the point-buy method: 50 points in steps of 5, each attribute between 0 and 25.
+- Confirmed derived values: defense = max(agility, 0); toughness save = constitution + 5; willpower save = wisdom + 5; movement 15 with an optional agility-based variant.
 
 ## Next
 
 - Verify the local storage integration with lint, build, and a browser refresh.
-- Add editing for the selected character's name.
+- Add the six attributes to the character model, factory, and normalization.
+- Add attribute editing to the character sheet UI.
+- Add unit tests for the first derived-value calculations.
+- Split the growing `App.tsx` into focused components.
+- Add ancestry, culture, and vocation selection from predefined data.
+- Add ancestry, culture, and vocation selection from predefined data.
 
 ## Blockers
 
